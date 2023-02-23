@@ -9,9 +9,11 @@ class Person
     private $name;
     private $user_email;
     private $passwd;
-    private $encypt_passwd;
+    private $encypt_passwd;   // from passwd
     private $security_type = "1";
-    private $encrypt_strategy = NULL;
+    private $encrypt_strategy = NULL;  // consider from security_type
+
+    // new object when register (validate data before register)
     function __construct($uid_in,$name_in, $user_email_in, $password_in, $security_type_in)
     {
         $this->uid = $uid_in;
@@ -136,7 +138,7 @@ class Person
         }
     }
 
-    public function changeEncryptType($etype,$uid){
+    public function switchEncryptTypeUpdatePassword($etype,$uid,$new_password){
         if($etype==1){
             $this->encrypt_strategy = new EncryptType1();
         } else if($etype==2){
@@ -144,8 +146,10 @@ class Person
         }
         
         $this->encrypt_passwd = $this->performEncrypt();
-        // param uid, encypt_passwd, security_type
+        // param uid, new_password, security_type
+        // gen new_encypt_passwd from new_password
         // change type and update new password to db (table person) by uid
+        // update security_type, new_encypt_passwd by uid
         // return updatestatus (boolean)
     }
 
