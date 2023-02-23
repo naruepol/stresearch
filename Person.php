@@ -11,7 +11,7 @@ class Person
     private $passwd;
     private $encypt_passwd;   // from passwd
     private $security_type = "1";
-    private $encrypt_strategy = NULL;  // consider from security_type
+    private $encrypt_strategy = NULL;  // (object type) consider from security_type
 
     // new object when register (validate data before register)
     function __construct($uid_in,$name_in, $user_email_in, $password_in, $security_type_in)
@@ -145,6 +145,7 @@ class Person
             $this->encrypt_strategy = new EncryptType2();
         }
         
+        $this->passwd = $new_password;
         $this->encrypt_passwd = $this->performEncrypt();
         // param uid, new_password, security_type
         // gen new_encypt_passwd from new_password
