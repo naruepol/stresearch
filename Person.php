@@ -21,12 +21,16 @@ class Person
         $this->security_type = $security_type_in;
         $this->encrypt_strategy = $this->createSecurityType($security_type_in);
 
+        // not delegate
         //$this->$encrypt_passwd = $this->$encrypt_strategy->encrypt($passwd);
+        //delegate
         $this->encrypt_passwd = $this->performEncrypt();
         // insert into db (table person)
         $this->insertUser();
     }
     
+     // apply factory method to create object encryption type 
+     // return EncryptAlgorithm
     private function createSecurityType($stid)
     {
         switch ($stid) {
@@ -39,11 +43,13 @@ class Person
         }
     }
 
+    // delegate method 
     private function performEncrypt()
     {
         return $this->encrypt_strategy->encrypt($this->passwd);
     }
 
+    // Dynamic binding
     public function setEncryptType($etype){
         if($etype==1){
             $this->encrypt_strategy = new EncryptType1();
@@ -55,35 +61,43 @@ class Person
         // change type and update new password to db (table person)
     }
 
+    // for test only
     public function getUid()
     {
         return $this->uid;
     }
    
+    // for test only
     public function getName()
     {
         return $this->name;
     }
 
+    // for test only
     public function getUserEmail()
     {
         return $this->user_email;
     }
 
+    // for test only
     public function getPassword()
     {
         return $this->passwd;
     }
 
+    // for test only
     public function getEncryptPassword()
     {
         return $this->encrypt_passwd;
     }
+
+    // for test only
     public function getSecurityType()
     {
         return $this->security_type;
     }
 
+    //used by constructor
     private function insertUser(){
         $host = 'localhost';
         $user = 'root';

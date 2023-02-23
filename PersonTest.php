@@ -5,6 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class PersonTest extends TestCase {
 
+    //for test only
     public function testCreateObject(){
         $p1 = new Person("2166","Somchai","somchai@myresearch.com","test","1");
         $this->assertEquals("2166",$p1->getUid());
@@ -14,16 +15,19 @@ class PersonTest extends TestCase {
         $this->assertEquals("1",$p1->getSecurityType());
     }
 
+    //for test only
     public function testEncryptionType1(){
         $p1 = new Person("2166","Somchai","U01","somchai@myresearch.com","1");
         $this->assertTrue(password_verify($p1->getPassword(), $p1->getEncryptPassword()));
     }
 
+    //for test only
     public function testEncryptionType2(){
         $p1 = new Person("2166","Somchai","U01","somchai@myresearch.com","2");
         $this->assertTrue(md5($p1->getPassword()) == $p1->getEncryptPassword());
     }
 
+    //for test only
     public function testChangeEncrptionType(){
         $p1 = new Person("2166","Somchai","U01","somchai@myresearch.com","1");
         $this->assertTrue(password_verify($p1->getPassword(), $p1->getEncryptPassword()));
