@@ -49,7 +49,7 @@ class Person
         return $this->encrypt_strategy->encrypt($this->passwd);
     }
 
-    // Dynamic binding
+    // Dynamic binding for test only
     public function setEncryptType($etype){
         if($etype==1){
             $this->encrypt_strategy = new EncryptType1();
@@ -58,7 +58,6 @@ class Person
         }
         
         $this->encrypt_passwd = $this->performEncrypt();
-        // change type and update new password to db (table person)
     }
 
     // for test only
@@ -134,5 +133,18 @@ class Person
             die();
         }
     }
+
+    public function changeEncryptType($etype,$uid){
+        if($etype==1){
+            $this->encrypt_strategy = new EncryptType1();
+        } else if($etype==2){
+            $this->encrypt_strategy = new EncryptType2();
+        }
+        
+        $this->encrypt_passwd = $this->performEncrypt();
+        // param uid, encypt_passwd, security_type
+        // change type and update new password to db (table person) by uid
+    }
+
 }
 ?>
