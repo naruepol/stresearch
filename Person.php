@@ -126,11 +126,13 @@ class Person
         {
             $stmt= $pdo->prepare($sql);
             $stmt->execute($data);
+            return true;
         }
         catch (PDOException $e)
         {
             echo 'Query error.';
             die();
+            return false;
         }
     }
 
@@ -144,6 +146,7 @@ class Person
         $this->encrypt_passwd = $this->performEncrypt();
         // param uid, encypt_passwd, security_type
         // change type and update new password to db (table person) by uid
+        // return updatestatus (boolean)
     }
 
 }
