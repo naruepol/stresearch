@@ -13,7 +13,7 @@ class Person
     private $security_type = "1";
     private $encrypt_strategy = NULL;  // (object type) consider from security_type
 
-    // new object when register (validate data before register)
+    // new object when add user (by admin) (validate data before register)
     function __construct($uid_in,$name_in, $user_email_in, $password_in, $security_type_in)
     {
         $this->uid = $uid_in;
@@ -28,9 +28,11 @@ class Person
         //delegate
         $this->encrypt_passwd = $this->performEncrypt();
         // insert into db (table person)
-        $this->insertUser();
+        
+        //$this->insertUser();
     }
     
+     // call by constructor
      // apply factory method to create object encryption type 
      // return EncryptAlgorithm
     private function createSecurityType($stid)
@@ -45,13 +47,16 @@ class Person
         }
     }
 
+    // call by constructor
+    // call by switchEncryptTypeUpdatePassword
     // delegate method 
     private function performEncrypt()
     {
         return $this->encrypt_strategy->encrypt($this->passwd);
     }
 
-    // Dynamic binding for test only
+    // call by tester check to change algorithm (another class)
+    // dynamic binding for test only
     public function setEncryptType($etype){
         if($etype==1){
             $this->encrypt_strategy = new EncryptType1();
@@ -98,7 +103,7 @@ class Person
         return $this->security_type;
     }
 
-    //used by constructor
+    // call by constructor (when add user by admin)
     private function insertUser(){
         $host = 'localhost';
         $user = 'root';
@@ -138,6 +143,7 @@ class Person
         }
     }
 
+    // call by Update Password Page (change security type and password)
     public function switchEncryptTypeUpdatePassword($etype,$uid,$new_password){
         if($etype==1){
             $this->encrypt_strategy = new EncryptType1();
@@ -154,5 +160,81 @@ class Person
         // return updatestatus (boolean)
     }
 
+    // call by LogIn Page
+    // return boolean
+    public function checkLogin($user_email_in,$user_password_in){
+        $this->user_email = user_email_in;
+        $this->passwd = user_password_in;
+        
+        if($this->getPersonDataForVerify()==true){
+            return $this->verifyEncrypt();
+        }else{
+            return false;
+        }
+
+    }
+
+    // call by checkLogin
+    // set $this->encypt_passwd before call
+    // verify
+    // return boolean
+    private function verifyEncrypt(){
+        if($this->security_type=="1"){
+            if (password_verify($p1->getPassword(), $p1->getEncryptPassword())){
+               return true;
+            } else {
+               return false;
+            }	
+        }else if($this->security_type=="2"){
+            if (md5($p1->getPassword()== $p1->getEncryptPassword())){
+                return true;
+             } else {
+                return false;
+             }	        
+        }
+    }
+
+    // get security_type_db and encypt_passwd_db from db
+    // set security_type และ encypt_passwd for verify
+    private function getPersonDataForVerify(){
+        $host = 'localhost';
+        $user = 'root';
+        $cpasswd = '';
+        $schema = 'organization';
+        $pdo = NULL;
+        $dsn = 'mysql:host=' . $host . ';dbname=' . $schema;
+        try
+        {  
+        $pdo = new PDO($dsn, $user,  $cpasswd);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch (PDOException $e)
+        {
+        echo 'Database connection failed.';
+        die();
+        } 
+        
+        $sql = "SELECT * FROM person WHERE user_email=:uemail";
+        try
+        {
+            $stmt= $pdo->prepare($sql);
+            $stmt->execute(['uemail' => $p1->getUserEmail()]);
+            $person = $stmt->fetch();
+            // $person (array result)
+            // echo $person['encypt_passwd'];
+            // echo "<br>";
+            // echo $person['security_type'];
+            // data for verify
+            $this->security_type = $person['security_type'];
+            $this->encypt_passwd = ['encypt_passwd'];
+            return true;
+        }
+        catch (PDOException $e)
+        {
+            echo 'Query error.';
+            die();
+            return false;
+        }        
+    }    
 }
 ?>
