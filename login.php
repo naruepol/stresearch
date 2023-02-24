@@ -11,6 +11,7 @@
     <title>LogIn</title>
   </head>
   <body>
+  <form action="./checklogin.php" id="check_login">
   <section class="vh-100" style="background-color: #508bfc;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -18,7 +19,7 @@
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
 
-            <h3 class="mb-5">Sign in</h3>
+            <h3 class="mb-5">USER Log in</h3>
 
             <div class="form-outline mb-4">
               <input type="email" id="user_email_in" class="form-control form-control-lg" />
@@ -39,5 +40,6 @@
     </div>
   </div>
 </section>
+</form>
   </body>
 </html>

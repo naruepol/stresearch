@@ -11,7 +11,8 @@
     <title>Add Account</title>
   </head>
   <body>
-  <section class="vh-100 gradient-custom">
+  <form action="./adduserst2.php" id="add_acount">
+  <section class="vh-100 gradient-custom" style="background-color: #508bfc;>
   <div class="container py-5 h-100">
     <div class="row justify-content-center align-items-center h-100">
       <div class="col-12 col-lg-9 col-xl-7">
@@ -74,5 +75,6 @@
     </div>
   </div>
 </section>
+</form>
 </body>
 </html>
