@@ -44,10 +44,10 @@ class PersonTest extends TestCase {
     //     $this->assertTrue(md5($this->p1->getPassword()) == $this->p1->getEncryptPassword());
     // }
 
-    // public function testCheckingLogin(){
-    //     $this->assertTrue($this->p1->checkLogin("somchai@myresearch.com","test"));
-    //     $this->assertTrue($this->p1->checkLogin("somsak@myresearch.com","secret"));
-    // }
+    public function testCheckingLogin(){
+        $this->assertTrue($this->p1->checkLogin("somchai@myresearch.com","test"));
+        $this->assertTrue($this->p1->checkLogin("somsak@myresearch.com","test"));
+    }
 
     // public function testAddingAccount(){
     //     $this->assertTrue($this->p1->setDataToInsertAccount("2499","Kasem","kasem@myreseach.com","bandit","1"));
