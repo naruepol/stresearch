@@ -42,4 +42,9 @@ class PersonTest extends TestCase {
         $this->assertFalse(password_verify($this->p1->getPassword(), $this->p1->getEncryptPassword()));
         $this->assertTrue(md5($this->p1->getPassword()) == $this->p1->getEncryptPassword());
     }
+
+    public function testCheckLogin(){
+        $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","1");
+        $this->assertTrue($this->p1->checkLogin("somchai@myresearch.com","test"));
+    }
 }

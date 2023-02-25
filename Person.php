@@ -142,18 +142,18 @@ class Person
         
         $this->passwd = $new_password;
         $this->encrypt_passwd = $this->performEncrypt();
-        // param uid, new_password, security_type
+        // param user_email, new_password, security_type
         // gen new_encypt_passwd from new_password
         // change attribute securyity_type and encypt_passwd
-        // update new_security_type, new_encypt_passwd to db (table person) by uid
+        // update new_security_type, new_encypt_passwd to db (table person) by user_email
         // return updatestatus (boolean)
     }
 
     // call by LogIn Page
     // return boolean
     public function checkLogin($user_email_in,$user_password_in){
-        $this->user_email = user_email_in;
-        $this->passwd = user_password_in;
+        $this->user_email = $user_email_in;
+        $this->passwd = $user_password_in;
         
         // get encypt_passwd and security_type
         if($this->getPersonDataForVerify()==true){
