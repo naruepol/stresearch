@@ -169,17 +169,11 @@ class Person
     // return boolean
     private function verifyEncrypt(){
         if($this->security_type=="1"){
-            if (password_verify($this->p1->getPassword(), $this->getEncryptPassword())){
-               return true;
-            } else {
-               return false;
-            }	
+            $this->encrypt_strategy = new EncryptType1();
+            return $this->encrypt_strategy->verify($this->p1->getPassword(),$this->getEncryptPassword());
         }else if($this->security_type=="2"){
-            if (md5($this->p1->getPassword()== $this->getEncryptPassword())){
-                return true;
-             } else {
-                return false;
-             }	        
+            $this->encrypt_strategy = new EncryptType2();
+            return $this->encrypt_strategy->verify($this->p1->getPassword(),$this->getEncryptPassword());      
         }
     }
 
