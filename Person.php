@@ -127,10 +127,10 @@ class Person
 
     // used by Update Password Page (change security type and password)
     // param user_id, new_password, security_type
-    public function switchEncryptTypeUpdatePassword($etype,$uid,$new_password){
-        $this->uid = $uid;
-        $this->security_type = $etype;
-        $this->passwd = $new_password;
+    public function switchEncryptTypeUpdatePassword($etype_in,$uid_in,$new_password_in){
+        $this->uid = $uid_in;
+        $this->security_type = $etype_in;
+        $this->passwd = $new_password_in;
         if($this->getSecurityType()==1){
             $this->encrypt_strategy = new EncryptType1();
         } else if($this->getSecurityType()==2){
@@ -186,7 +186,10 @@ class Person
     public function checkLogin($user_email_in,$user_password_in){
         $this->user_email = $user_email_in;
         $this->passwd = $user_password_in;
-        
+        // echo $this->user_email;
+        // echo "<br>";
+        // echo $this->passwd;
+
         // get encrypt_passwd and security_type
         // set $this->security_type, $this->encrypt_passwd
         if($this->getPersonDataForVerify()==true){
@@ -234,15 +237,20 @@ class Person
             $stmt= $this->db->prepare($sql);
             $stmt->execute(['uemail' => $this->getUserEmail()]);
             $person = $stmt->fetch();
-            // $person (array result)
+            // person (array result)
             // for novice test
+            // echo 'Enter Query.';
+            // echo "<br>";
             // echo $person['encrypt_passwd'];
             // echo "<br>";
             // echo $person['security_type'];
             // echo "<br>";
             // data for verify
-            $this->encrypt_passwd = $person['encrypt_passwd'];
-            $this->security_type = $person['security_type'];
+            if(is_array($person) ) {
+                $this->encrypt_passwd = $person['encrypt_passwd'];
+                $this->security_type = $person['security_type'];
+            }
+
             return true;
         }
         catch (PDOException $e)

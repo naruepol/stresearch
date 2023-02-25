@@ -11,7 +11,7 @@
     <title>Add Account</title>
   </head>
   <body>
-  <form action="./adduser.php" id="add_account">
+  <form action="./adduser.php" id="add_account" method="post">
   <section class="vh-100 gradient-custom" style="background-color: #508bfc;">
   <div class="container py-5 h-100">
     <div class="row justify-content-center align-items-center h-100">
@@ -22,31 +22,31 @@
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
-                    <input type="text" id="uid_in" class="form-control form-control-lg" />
+                    <input type="text" name="uid_in" id="uid_in" class="form-control form-control-lg" />
                     <label class="form-label" for="uid_in">USER ID</label>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
-                    <input type="text" id="name_in" class="form-control form-control-lg" />
+                    <input type="text" name="name_in" id="name_in" class="form-control form-control-lg" />
                     <label class="form-label" for="name_in">Full Name</label>
                   </div>
                 </div>                <div class="col-md-6 mb-4">
                   <div class="form-outline">
-                    <input type="email" id="user_email_in" class="form-control form-control-lg" />
+                    <input type="email" name="user_email_in" id="user_email_in" class="form-control form-control-lg" />
                     <label class="form-label" for="uid_in">Email</label>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
-                    <input type="password" id="password_in" class="form-control form-control-lg" />
-                    <label class="form-label" for="name_in">Password</label>
+                    <input type="password" name="password_in" id="password_in" class="form-control form-control-lg" />
+                    <label class="form-label" for="password_in">Password</label>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12">
-                  <select class="select form-control-lg" id="security_type_in">
+                  <select class="select form-control-lg" name="security_type_in" id="security_type_in">
                     <option value="0" disabled>Select Security Type</option>
                     <option value="1">Type1</option>
                     <option value="2">Type2</option>
@@ -55,7 +55,7 @@
                 </div>
               </div>
               <div class="mt-4 pt-2">
-                <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                <input class="btn btn-primary btn-lg" id="user_submit" type="submit" value="Submit" />
                 <br>
                 <a href="./login.html">Log In Page |</a><a href="./adduser.html">Add Account |</a><a href="./changesecurity.html">Change Security </a>
               </div>

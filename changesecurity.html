@@ -11,7 +11,7 @@
     <title>Change Security</title>
   </head>
   <body>
-  <form action="./changesecurity.php" id="update_account">
+  <form action="./changesecurity.php" id="update_account" method="post">
   <section class="vh-100 gradient-custom" style="background-color: #508bfc;">
   <div class="container py-5 h-100">
     <div class="row justify-content-center align-items-center h-100">
@@ -22,18 +22,18 @@
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
-                    <input type="text" id="uid_in" class="form-control form-control-lg" />
+                    <input type="text" id="uid_in" name="uid_in" class="form-control form-control-lg" />
                     <label class="form-label" for="uid_in">USER ID</label>
                   </div>
                 </div>
                 <div class="form-outline mb-4">
-                  <input type="password" id="password_in" class="form-control form-control-lg" />
-                  <label class="form-label" for="password_in">New Password</label>
+                  <input type="password" id="new_password" name="new_password" class="form-control form-control-lg" />
+                  <label class="form-label" for="new_password">New Password</label>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12">
-                  <select class="select form-control-lg" id="security_type_in">
+                  <select class="select form-control-lg" id="security_type_in" name="new_password" >
                     <option value="0" disabled>Select New Security Type</option>
                     <option value="1">Type1</option>
                     <option value="2">Type2</option>
@@ -42,7 +42,7 @@
                 </div>
               </div>
               <div class="mt-4 pt-2">
-                <input class="btn btn-primary btn-lg" type="submit" value="Update" />
+                <input class="btn btn-primary btn-lg" id="update_btn" type="submit" value="Update" />
                 <br>
                 <a href="./login.html">Log In Page |</a><a href="./adduser.html">Add Account |</a><a href="./changesecurity.html">Change Security </a>
               </div>

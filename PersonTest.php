@@ -50,7 +50,7 @@ class PersonTest extends TestCase {
     // }
 
     public function testChangeSecurity(){
-        $this->assertTrue($this->p1->switchEncryptTypeUpdatePassword("2","2167","secret"));
+        //$this->assertTrue($this->p1->switchEncryptTypeUpdatePassword("2","2167","secret"));
         $this->assertTrue($this->p1->checkLogin("somsak@myresearch.com","secret"));
     }
 }

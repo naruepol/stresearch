@@ -11,7 +11,7 @@
     <title>LogIn</title>
   </head>
   <body>
-  <form action="./checklogin.php" id="check_login">
+  <form action="./checklogin.php" id="check_login" method="post">
   <section class="vh-100" style="background-color: #508bfc;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -20,14 +20,14 @@
           <div class="card-body p-5 text-center">
             <h3 class="mb-5">USER Log in</h3>
             <div class="form-outline mb-4">
-              <input type="email" id="user_email_in" class="form-control form-control-lg" />
+              <input type="email" name="user_email_in" id="user_email_in" class="form-control form-control-lg" />
               <label class="form-label" for="user_email_in">Email</label>
             </div>
             <div class="form-outline mb-4">
-              <input type="password" id="user_password_in" class="form-control form-control-lg" />
+              <input type="password" name="user_password_in" id="user_password_in" class="form-control form-control-lg" />
               <label class="form-label" for="user_password_in">Password</label>
             </div>
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+            <button class="btn btn-primary btn-lg btn-block" id="login_btn" type="submit">Login</button>
             <br>
             <a href="./login.html">Log In Page |</a><a href="./adduser.html">Add Account |</a><a href="./changesecurity.html">Change Security </a>
             <hr class="my-4">
