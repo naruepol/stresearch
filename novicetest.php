@@ -3,7 +3,8 @@
 include "Person.php";
 include "Connect.php";
 $con = new connectDB();
-$p1 = new Person($con->connect(),"2166","Somchai","somchai@myresearch.com","test","2");
+$p1 = new Person($con->connect());
+$p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","2");
 // show password encrypt by security type 2
 echo "Pass : ".$p1->getEncryptPassword();
 echo "<br>";

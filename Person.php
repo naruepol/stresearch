@@ -15,9 +15,13 @@ class Person
     private $encrypt_strategy = NULL;  // (object type) consider from security_type
 
     // new object when add user (by admin) (validate data before register)
-    function __construct($con_in,$uid_in,$name_in, $user_email_in, $password_in, $security_type_in)
+    function __construct($con_in)
     {
         $this->db= $con_in;
+
+    }
+
+    public function setDataToInsertAccount($uid_in,$name_in, $user_email_in, $password_in, $security_type_in){
         $this->uid = $uid_in;
         $this->name = $name_in;
         $this->user_email = $user_email_in;

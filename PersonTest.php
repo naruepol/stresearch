@@ -1,38 +1,45 @@
 <?php declare(strict_types=1);
 // Tester Test
 include "Person.php";
+include "Connect.php";
 use PHPUnit\Framework\TestCase;
 
 class PersonTest extends TestCase {
+    private $con;
+    private $p1;
 
+    public function setUp():void {
+        $this->con = new connectDB();
+        $this->p1 = new Person($this->con->connect());
+    }
     //for test only
     public function testCreateObject(){
-        $p1 = new Person("2166","Somchai","somchai@myresearch.com","test","1");
-        $this->assertEquals("2166",$p1->getUid());
-        $this->assertEquals("Somchai",$p1->getName());
-        $this->assertEquals("somchai@myresearch.com",$p1->getUserEmail());
-        $this->assertEquals("test",$p1->getPassword());
-        $this->assertEquals("1",$p1->getSecurityType());
+        $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","2");
+        $this->assertEquals("2166",$this->p1->getUid());
+        $this->assertEquals("Somchai",$this->p1->getName());
+        $this->assertEquals("somchai@myresearch.com",$this->p1->getUserEmail());
+        $this->assertEquals("test",$this->p1->getPassword());
+        $this->assertEquals("2",$this->p1->getSecurityType());
     }
 
     //for test only
     public function testEncryptionType1(){
-        $p1 = new Person("2166","Somchai","U01","somchai@myresearch.com","1");
-        $this->assertTrue(password_verify($p1->getPassword(), $p1->getEncryptPassword()));
+        $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","1");
+        $this->assertTrue(password_verify($this->p1->getPassword(), $this->p1->getEncryptPassword()));
     }
 
-    //for test only
+    // //for test only
     public function testEncryptionType2(){
-        $p1 = new Person("2166","Somchai","U01","somchai@myresearch.com","2");
-        $this->assertTrue(md5($p1->getPassword()) == $p1->getEncryptPassword());
+        $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","2");
+        $this->assertTrue(md5($this->p1->getPassword()) == $this->p1->getEncryptPassword());
     }
 
-    //for test only
+    // //for test only
     public function testChangeEncrptionType(){
-        $p1 = new Person("2166","Somchai","U01","somchai@myresearch.com","1");
-        $this->assertTrue(password_verify($p1->getPassword(), $p1->getEncryptPassword()));
-        $p1->setEncryptType("2");
-        $this->assertFalse(password_verify($p1->getPassword(), $p1->getEncryptPassword()));
-        $this->assertTrue(md5($p1->getPassword()) == $p1->getEncryptPassword());
+        $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","1");
+        $this->assertTrue(password_verify($this->p1->getPassword(), $this->p1->getEncryptPassword()));
+        $this->p1->setEncryptType("2");
+        $this->assertFalse(password_verify($this->p1->getPassword(), $this->p1->getEncryptPassword()));
+        $this->assertTrue(md5($this->p1->getPassword()) == $this->p1->getEncryptPassword());
     }
 }
