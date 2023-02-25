@@ -37,7 +37,7 @@ class Person
         //$this->insertUser();
     }
     
-     // call by constructor
+     // call by setDataToInsertAccount
      // apply factory method to create object encryption type 
      // return EncryptAlgorithm
     private function createSecurityType($stid)
@@ -52,9 +52,9 @@ class Person
         }
     }
 
-    // call by constructor
+    // call by setDataToInsertAccount
     // call by switchEncryptTypeUpdatePassword
-    // delegate method 
+    // delegate method  
     private function performEncrypt()
     {
         return $this->encrypt_strategy->encrypt($this->passwd);
