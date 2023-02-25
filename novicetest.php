@@ -91,4 +91,6 @@ $p1 = new Person($con->connect());
  
  // Add User
  // $p1->setDataToInsertAccount("2167","Somsak","somsak@myresearch.com","test","1");
+ echo "<br>";
+ $p1->switchEncryptTypeUpdatePassword("2","2166","secret");
 ?>

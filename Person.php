@@ -135,10 +135,15 @@ class Person
         
         $this->passwd = $new_password;
         $this->encrypt_passwd = $this->performEncrypt();
-        // param user_email, new_password, security_type
+        // check data befor implement
+        echo "NP1 ".$this->passwd;
+        echo "<br>";
+        echo "EP1 ".$this->encrypt_passwd;
+
+        // param user_id, new_password, security_type
         // gen new_encypt_passwd from new_password
         // change attribute securyity_type and encypt_passwd
-        // update new_security_type, new_encypt_passwd to db (table person) by user_email
+        // update new_security_type, new_encypt_passwd to db (table person) by user_id
         // return updatestatus (boolean)
     }
 
