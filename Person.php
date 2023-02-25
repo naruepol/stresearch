@@ -32,9 +32,10 @@ class Person
         //$this->$encrypt_passwd = $this->$encrypt_strategy->encrypt($passwd);
         //delegate
         $this->encrypt_passwd = $this->performEncrypt();
+
+        // disable for test
         // insert into db (table person)
-        
-        //$this->insertUser();
+        $this->insertUser();
     }
     
      // call by setDataToInsertAccount
@@ -120,7 +121,7 @@ class Person
         $sql = "INSERT INTO person (user_id , user_name, user_email, encypt_passwd, security_type) VALUES (:uid, :name, :email, :epasswd, :st)";
         try
         {
-            $stmt= $his->db->prepare($sql);
+            $stmt= $this->db->prepare($sql);
             $stmt->execute($data);
             return true;
         }
