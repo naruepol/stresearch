@@ -169,7 +169,7 @@ class Person
     // return boolean
     private function verifyEncrypt(){
         if($this->security_type=="1"){
-            if (password_verify($this->->getPassword(), $this->getEncryptPassword())){
+            if (password_verify($this->p1->getPassword(), $this->getEncryptPassword())){
                return true;
             } else {
                return false;
