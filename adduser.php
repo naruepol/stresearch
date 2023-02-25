@@ -2,9 +2,6 @@
 include "Person.php";
 include "Connect.php";
 
-$con = new connectDB();
-$p1 = new Person($con->connect());
-
 $uid_in = $_POST["uid_in"];
 $name_in = $_POST["name_in"];
 $user_email_in = $_POST["user_email_in"];
@@ -21,6 +18,9 @@ $security_type_in = $_POST["security_type_in"];
 // echo "<br>";
 // echo $security_type_in;
 // echo "<br>";
+
+$con = new connectDB();
+$p1 = new Person($con->connect());
 
 if($p1->setDataToInsertAccount($uid_in,$name_in, $user_email_in, $password_in, $security_type_in)==true){
     echo "Successful";
