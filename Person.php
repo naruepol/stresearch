@@ -83,7 +83,11 @@ class Person
 
         // disable for test
         // insert into db (table person)
-        // $this->insertUser();
+        if($this->insertUser()==true){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     // call by setDataToInsertAccount
@@ -230,7 +234,7 @@ class Person
     // set security_type และ encrypt_passwd for verify
     // call by checkLogin
     // change to public for test (default private)
-    public function getPersonDataForVerify(){
+    private function getPersonDataForVerify(){
         $sql = "SELECT * FROM person WHERE user_email=:uemail";
         try
         {
