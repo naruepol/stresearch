@@ -155,6 +155,7 @@ class Person
         $this->user_email = user_email_in;
         $this->passwd = user_password_in;
         
+        // get encypt_passwd and security_type
         if($this->getPersonDataForVerify()==true){
             return $this->verifyEncrypt();
         }else{
@@ -170,10 +171,10 @@ class Person
     private function verifyEncrypt(){
         if($this->security_type=="1"){
             $this->encrypt_strategy = new EncryptType1();
-            return $this->encrypt_strategy->verify($this->p1->getPassword(),$this->getEncryptPassword());
+            return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword());
         }else if($this->security_type=="2"){
             $this->encrypt_strategy = new EncryptType2();
-            return $this->encrypt_strategy->verify($this->p1->getPassword(),$this->getEncryptPassword());      
+            return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword());      
         }
     }
 
