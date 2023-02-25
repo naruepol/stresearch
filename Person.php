@@ -22,21 +22,21 @@ class Person
     }
 
     // public for test only  // use private
-    // call by setDataToInsertAccount
+    // call by insertUser
     private function getUid()
     {
         return $this->uid;
     }
    
     // public for test only  // use private
-    // call by setDataToInsertAccount
+    // call by insertUser
     private function getName()
     {
         return $this->name;
     }
 
     // public for test only  // use private
-    // call by setDataToInsertAccount
+    // call by insertUser
     // call by getPersonDataForVerify
     private function getUserEmail()
     {
@@ -44,7 +44,7 @@ class Person
     }
 
     // public for test only  // use private
-    // call by setDataToInsertAccount
+    // call by 
     // call by verifyEncrypt
     private function getPassword()
     {
@@ -52,7 +52,6 @@ class Person
     }
 
     // public for test only // use private
-    // call by setDataToInsertAccount
     // call by verifyEncrypt
     private function getEncryptPassword()
     {
@@ -60,7 +59,7 @@ class Person
     }
 
     // public for test only // use private
-    // call by setDataToInsertAccount
+    // call by insertUser
     // call by verifyEncrypt
     private function getSecurityType()
     {
