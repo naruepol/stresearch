@@ -144,8 +144,8 @@ class Person
         $this->encrypt_passwd = $this->performEncrypt();
         // param uid, new_password, security_type
         // gen new_encypt_passwd from new_password
-        // change type and update new password to db (table person) by uid
-        // update security_type, new_encypt_passwd by uid
+        // change attribute securyity_type and encypt_passwd
+        // update new_security_type, new_encypt_passwd to db (table person) by uid
         // return updatestatus (boolean)
     }
 
@@ -164,7 +164,7 @@ class Person
     }
 
     // call by checkLogin
-    // set $this->encypt_passwd before call
+    // set $this->encypt_passwd before call (by getPersonDataForVerify)
     // verify
     // return boolean
     private function verifyEncrypt(){
