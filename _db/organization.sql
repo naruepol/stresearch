@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2023 at 10:59 PM
+-- Generation Time: Feb 25, 2023 at 02:01 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -40,8 +40,8 @@ CREATE TABLE `person` (
 --
 
 INSERT INTO `person` (`user_id`, `user_name`, `user_email`, `encypt_passwd`, `security_type`) VALUES
-('1', 'test', 'test@test.com', '1111', '1'),
-('2166', 'Somchai', 'somchai@myresearch.com', '098f6bcd4621d373cade4e832627b4f6', '2');
+('2166', 'Somchai', 'somchai@myresearch.com', '098f6bcd4621d373cade4e832627b4f6', '2'),
+('2167', 'Somsak', 'somsak@myresearch.com', '$2y$10$y/nMNCkPUwNCR6xY68oNjedNmvDM/wyEkjQZuP.3CAzZN5yFxxtAG', '1');
 
 --
 -- Indexes for dumped tables
