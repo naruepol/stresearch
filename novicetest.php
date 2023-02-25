@@ -87,10 +87,10 @@ $p1 = new Person($con->connect());
 //     die();
 // }
 
- echo "Return : ".$p1->checkLogin("somchai@myresearch.com","test");
+// echo "Return : ".$p1->checkLogin("somchai@myresearch.com","test");
  
  // Add User
  // $p1->setDataToInsertAccount("2167","Somsak","somsak@myresearch.com","test","1");
- echo "<br>";
- $p1->switchEncryptTypeUpdatePassword("2","2166","secret");
+//  echo "<br>";
+ $p1->switchEncryptTypeUpdatePassword("1","2167","test");
 ?>

@@ -13,7 +13,7 @@ class PersonTest extends TestCase {
         $this->p1 = new Person($this->con->connect());
     }
     
-    //for test only (used getXXX) before run diable $this->insertUser(); in setDataToInsertAccount
+    //for test only (used getXXX) before run disable $this->insertUser(); in setDataToInsertAccount
     // public function testCreateObject(){
     //     $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","2");
     //     $this->assertEquals("2166",$this->p1->getUid());
@@ -23,7 +23,7 @@ class PersonTest extends TestCase {
     //     $this->assertEquals("2",$this->p1->getSecurityType());
     // }
 
-    //for test only (used getXXX) before run diable $this->insertUser(); in setDataToInsertAccount
+    //for test only (used getXXX) before run disable $this->insertUser(); in setDataToInsertAccount
     // public function testEncryptionType1(){
     //     $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","1");
     //     $this->assertTrue(password_verify($this->p1->getPassword(), $this->p1->getEncryptPassword()));
@@ -35,7 +35,7 @@ class PersonTest extends TestCase {
     //     $this->assertTrue(md5($this->p1->getPassword()) == $this->p1->getEncryptPassword());
     // }
 
-    // //for test only (used getXXX) before run diable $this->insertUser(); in setDataToInsertAccount
+    //for test only (used getXXX) before run disable $this->insertUser(); in setDataToInsertAccount
     // public function testChangeEncrptionType(){
     //     $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","1");
     //     $this->assertTrue(password_verify($this->p1->getPassword(), $this->p1->getEncryptPassword()));
@@ -44,8 +44,13 @@ class PersonTest extends TestCase {
     //     $this->assertTrue(md5($this->p1->getPassword()) == $this->p1->getEncryptPassword());
     // }
 
-    public function testCheckLogin(){
-        $this->assertTrue($this->p1->checkLogin("somchai@myresearch.com","test"));
-        $this->assertTrue($this->p1->checkLogin("somsak@myresearch.com","test"));
+    // public function testCheckLogin(){
+    //     $this->assertTrue($this->p1->checkLogin("somchai@myresearch.com","test"));
+    //     $this->assertTrue($this->p1->checkLogin("somsak@myresearch.com","test"));
+    // }
+
+    public function testChangeSecurity(){
+        $this->assertTrue($this->p1->switchEncryptTypeUpdatePassword("2","2167","secret"));
+        $this->assertTrue($this->p1->checkLogin("somsak@myresearch.com","secret"));
     }
 }

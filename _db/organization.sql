@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2023 at 02:01 PM
+-- Generation Time: Feb 25, 2023 at 03:58 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -31,7 +31,7 @@ CREATE TABLE `person` (
   `user_id` varchar(4) NOT NULL,
   `user_name` varchar(200) NOT NULL,
   `user_email` varchar(255) NOT NULL,
-  `encypt_passwd` varchar(255) NOT NULL,
+  `encrypt_passwd` varchar(255) NOT NULL,
   `security_type` char(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,9 +39,9 @@ CREATE TABLE `person` (
 -- Dumping data for table `person`
 --
 
-INSERT INTO `person` (`user_id`, `user_name`, `user_email`, `encypt_passwd`, `security_type`) VALUES
+INSERT INTO `person` (`user_id`, `user_name`, `user_email`, `encrypt_passwd`, `security_type`) VALUES
 ('2166', 'Somchai', 'somchai@myresearch.com', '098f6bcd4621d373cade4e832627b4f6', '2'),
-('2167', 'Somsak', 'somsak@myresearch.com', '$2y$10$y/nMNCkPUwNCR6xY68oNjedNmvDM/wyEkjQZuP.3CAzZN5yFxxtAG', '1');
+('2167', 'Somsak', 'somsak@myresearch.com', '$2y$10$h5S0sQPrJ46pnxdlCmNtaOgrm9e/.cWJbPRyDo2fxtD7LGedVXqdO', '1');
 
 --
 -- Indexes for dumped tables

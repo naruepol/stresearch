@@ -10,7 +10,7 @@ class Person
     private $name;
     private $user_email;
     private $passwd;
-    private $encypt_passwd;   // from passwd
+    private $encrypt_passwd;   // from passwd
     private $security_type = "1";
     private $encrypt_strategy = NULL;  // (object type) consider from security_type
 
@@ -83,7 +83,7 @@ class Person
 
         // disable for test
         // insert into db (table person)
-        $this->insertUser();
+        // $this->insertUser();
     }
     
     // call by setDataToInsertAccount
@@ -110,7 +110,7 @@ class Person
             'epasswd' => $this->getEncryptPassword(),
             'st' => $this->getSecurityType(),
         ];
-        $sql = "INSERT INTO person (user_id , user_name, user_email, encypt_passwd, security_type) VALUES (:uid, :name, :email, :epasswd, :st)";
+        $sql = "INSERT INTO person (user_id , user_name, user_email, encrypt_passwd, security_type) VALUES (:uid, :name, :email, :epasswd, :st)";
         try
         {
             $stmt= $this->db->prepare($sql);
@@ -119,32 +119,66 @@ class Person
         }
         catch (PDOException $e)
         {
-            echo 'Query error.';
+            echo 'Insert error.';
             die();
             return false;
         }
     }
 
     // used by Update Password Page (change security type and password)
+    // param user_id, new_password, security_type
     public function switchEncryptTypeUpdatePassword($etype,$uid,$new_password){
-        if($etype==1){
+        $this->uid = $uid;
+        $this->security_type = $etype;
+        $this->passwd = $new_password;
+        if($this->getSecurityType()==1){
             $this->encrypt_strategy = new EncryptType1();
-        } else if($etype==2){
+        } else if($this->getSecurityType()==2){
             $this->encrypt_strategy = new EncryptType2();
         }
-        
-        $this->passwd = $new_password;
+
+        // gen new_encrypt_passwd from new_password
         $this->encrypt_passwd = $this->performEncrypt();
         // check data befor implement
-        echo "NP1 ".$this->passwd;
-        echo "<br>";
-        echo "EP1 ".$this->encrypt_passwd;
-
-        // param user_id, new_password, security_type
-        // gen new_encypt_passwd from new_password
-        // change attribute securyity_type and encypt_passwd
+        // echo "<br>";
+        // echo "UID : ".$this->getUid();
+        // echo "<br>";
+        // echo "Security_type : ".$this->getSecurityType();      
+        // echo "<br>";
+        // echo "NP1 : ".$this->getPassword();
+        // echo "<br>";
+        // echo "ENP1 : ".$this->getEncryptPassword();
+        // echo "<br>";
+        // change attribute securyity_type and encrypt_passwd
         // update new_security_type, new_encypt_passwd to db (table person) by user_id
-        // return updatestatus (boolean)
+        if($this->updateUserSecurity()==true){
+            return true;
+        }else {
+            return false;
+        }
+        // return update status (boolean)
+    }
+
+    // call by switchEncryptTypeUpdatePassword (when change password by admin)
+    private function updateUserSecurity(){
+        $data = [
+            'uid' => $this->getUid(),
+            'epasswd' => $this->getEncryptPassword(),
+            'st' => $this->getSecurityType(),
+        ];
+        $sql = "UPDATE person SET encrypt_passwd=:epasswd, security_type=:st WHERE user_id=:uid";
+        try
+        {
+            $stmt= $this->db->prepare($sql);
+            $stmt->execute($data);
+            return true;
+        }
+        catch (PDOException $e)
+        {
+            echo 'Update error.';
+            die();
+            return false;
+        }
     }
 
     // used by LogIn Page
@@ -153,7 +187,7 @@ class Person
         $this->user_email = $user_email_in;
         $this->passwd = $user_password_in;
         
-        // get encypt_passwd and security_type
+        // get encrypt_passwd and security_type
         // set $this->security_type, $this->encrypt_passwd
         if($this->getPersonDataForVerify()==true){
             return $this->verifyEncrypt();
@@ -172,7 +206,7 @@ class Person
     }
 
     // call by checkLogin
-    // set $this->encypt_passwd before call (by getPersonDataForVerify)
+    // set $this->encrypt_passwd before call (by getPersonDataForVerify)
     // verify
     // return boolean
     private function verifyEncrypt(){
@@ -180,22 +214,20 @@ class Person
             $this->encrypt_strategy = new EncryptType1();
             return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword());
         }else if($this->getSecurityType() =="2"){
-            echo "Password : ".$this->getPassword();
+            // echo "Password : ".$this->getPassword();
             $this->encrypt_strategy = new EncryptType2();
-            echo "<br>";
-            echo "Encrypt : ".$this->getEncryptPassword();
-            echo "<br>";
+            // echo "<br>";
+            // echo "Encrypt : ".$this->getEncryptPassword();
+            // echo "<br>";
             return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword());      
         }
     }
 
-    // get security_type_db and encypt_passwd_db from db
-    // set security_type และ encypt_passwd for verify
+    // get security_type_db and encrypt_passwd_db from db
+    // set security_type และ encrypt_passwd for verify
     // call by checkLogin
     // change to public for test (default private)
     public function getPersonDataForVerify(){
-
-        
         $sql = "SELECT * FROM person WHERE user_email=:uemail";
         try
         {
@@ -204,13 +236,13 @@ class Person
             $person = $stmt->fetch();
             // $person (array result)
             // for novice test
-            echo $person['encypt_passwd'];
-            echo "<br>";
-            echo $person['security_type'];
-            echo "<br>";
+            // echo $person['encrypt_passwd'];
+            // echo "<br>";
+            // echo $person['security_type'];
+            // echo "<br>";
             // data for verify
+            $this->encrypt_passwd = $person['encrypt_passwd'];
             $this->security_type = $person['security_type'];
-            $this->encrypt_passwd = $person['encypt_passwd'];
             return true;
         }
         catch (PDOException $e)
@@ -224,14 +256,14 @@ class Person
     // call by tester check to change algorithm (another class)
     // dynamic binding for test only
     // method switchEncryptTypeUpdatePassword for real use
-    public function setEncryptType($etype){
-        if($etype==1){
-            $this->encrypt_strategy = new EncryptType1();
-        } else if($etype==2){
-            $this->encrypt_strategy = new EncryptType2();
-        }
-        
-        $this->encrypt_passwd = $this->performEncrypt();
-    }
+    // public function setEncryptType($etype){
+    //     $this->security_type = $etype;
+    //     if($this->getSecurityType()==1){
+    //         $this->encrypt_strategy = new EncryptType1();
+    //     } else if($this->getSecurityType()==2){
+    //         $this->encrypt_strategy = new EncryptType2();
+    //     }
+    //     $this->encrypt_passwd = $this->performEncrypt();
+    // }
 }
 ?>
