@@ -5,6 +5,7 @@ include "EncryptType2.php";
 
 class Person
 {
+    private $db;  // pdo database connection 
     private $uid;
     private $name;
     private $user_email;
@@ -14,8 +15,9 @@ class Person
     private $encrypt_strategy = NULL;  // (object type) consider from security_type
 
     // new object when add user (by admin) (validate data before register)
-    function __construct($uid_in,$name_in, $user_email_in, $password_in, $security_type_in)
+    function __construct($con_in,$uid_in,$name_in, $user_email_in, $password_in, $security_type_in)
     {
+        $this->db= $con_in;
         $this->uid = $uid_in;
         $this->name = $name_in;
         $this->user_email = $user_email_in;
@@ -105,22 +107,6 @@ class Person
 
     // call by constructor (when add user by admin)
     private function insertUser(){
-        $host = 'localhost';
-        $user = 'root';
-        $cpasswd = '';
-        $schema = 'organization';
-        $pdo = NULL;
-        $dsn = 'mysql:host=' . $host . ';dbname=' . $schema;
-        try
-        {  
-        $pdo = new PDO($dsn, $user,  $cpasswd);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
-        catch (PDOException $e)
-        {
-        echo 'Database connection failed.';
-        die();
-        } 
         $data = [
             'uid' => $this->uid,
             'name' => $this->name,
@@ -131,7 +117,7 @@ class Person
         $sql = "INSERT INTO person (user_id , user_name, user_email, encypt_passwd, security_type) VALUES (:uid, :name, :email, :epasswd, :st)";
         try
         {
-            $stmt= $pdo->prepare($sql);
+            $stmt= $his->db->prepare($sql);
             $stmt->execute($data);
             return true;
         }
@@ -180,13 +166,13 @@ class Person
     // return boolean
     private function verifyEncrypt(){
         if($this->security_type=="1"){
-            if (password_verify($p1->getPassword(), $p1->getEncryptPassword())){
+            if (password_verify($p1->getPassword(), $this->getEncryptPassword())){
                return true;
             } else {
                return false;
             }	
         }else if($this->security_type=="2"){
-            if (md5($p1->getPassword()== $p1->getEncryptPassword())){
+            if (md5($p1->getPassword()== $this->getEncryptPassword())){
                 return true;
              } else {
                 return false;
@@ -196,34 +182,21 @@ class Person
 
     // get security_type_db and encypt_passwd_db from db
     // set security_type และ encypt_passwd for verify
-    private function getPersonDataForVerify(){
-        $host = 'localhost';
-        $user = 'root';
-        $cpasswd = '';
-        $schema = 'organization';
-        $pdo = NULL;
-        $dsn = 'mysql:host=' . $host . ';dbname=' . $schema;
-        try
-        {  
-        $pdo = new PDO($dsn, $user,  $cpasswd);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
-        catch (PDOException $e)
-        {
-        echo 'Database connection failed.';
-        die();
-        } 
+    // change to public for test (default private)
+    public function getPersonDataForVerify(){
+
         
         $sql = "SELECT * FROM person WHERE user_email=:uemail";
         try
         {
-            $stmt= $pdo->prepare($sql);
-            $stmt->execute(['uemail' => $p1->getUserEmail()]);
+            $stmt= $this->db->prepare($sql);
+            $stmt->execute(['uemail' => $this->getUserEmail()]);
             $person = $stmt->fetch();
             // $person (array result)
-            // echo $person['encypt_passwd'];
-            // echo "<br>";
-            // echo $person['security_type'];
+            echo $person['encypt_passwd'];
+            echo "<br>";
+            echo $person['security_type'];
+            echo "<br>";
             // data for verify
             $this->security_type = $person['security_type'];
             $this->encypt_passwd = ['encypt_passwd'];

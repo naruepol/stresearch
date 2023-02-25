@@ -1,8 +1,9 @@
 <?php
 // Novice Test
 include "Person.php";
-
-$p1 = new Person("2166","Somchai","somchai@myresearch.com","test","2");
+include "Connect.php";
+$con = new connectDB();
+$p1 = new Person($con->connect(),"2166","Somchai","somchai@myresearch.com","test","2");
 // show password encrypt by security type 2
 echo "Pass : ".$p1->getEncryptPassword();
 echo "<br>";
@@ -45,39 +46,43 @@ echo "<br>";
 echo $p1->getUserEmail();
 echo "<br>";
 
-$host = 'localhost';
-$user = 'root';
-$cpasswd = '';
-$schema = 'organization';
-$pdo = NULL;
-$dsn = 'mysql:host=' . $host . ';dbname=' . $schema;
-try
-{  
-$pdo = new PDO($dsn, $user,  $cpasswd);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch (PDOException $e)
-{
-echo 'Database connection failed.';
-die();
-} 
+echo "<br>";
+echo $p1->getPersonDataForVerify();
+echo "<br>";
 
-$sql = "SELECT * FROM person WHERE user_email=:uemail";
-try
-{
-    $stmt= $pdo->prepare($sql);
-    $stmt->execute(['uemail' => $p1->getUserEmail()]);
-    $person = $stmt->fetch();
-    // $person (array result)
-    echo $person['encypt_passwd'];
-    echo "<br>";
-    echo $person['security_type'];
+// $host = 'localhost';
+// $user = 'root';
+// $cpasswd = '';
+// $schema = 'organization';
+// $pdo = NULL;
+// $dsn = 'mysql:host=' . $host . ';dbname=' . $schema;
+// try
+// {  
+// $pdo = new PDO($dsn, $user,  $cpasswd);
+// $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// }
+// catch (PDOException $e)
+// {
+// echo 'Database connection failed.';
+// die();
+// } 
+
+// $sql = "SELECT * FROM person WHERE user_email=:uemail";
+// try
+// {
+//     $stmt= $pdo->prepare($sql);
+//     $stmt->execute(['uemail' => $p1->getUserEmail()]);
+//     $person = $stmt->fetch();
+//     // $person (array result)
+//     echo $person['encypt_passwd'];
+//     echo "<br>";
+//     echo $person['security_type'];
     
-}
-catch (PDOException $e)
-{
-    echo 'Query error.';
-    die();
-}
+// }
+// catch (PDOException $e)
+// {
+//     echo 'Query error.';
+//     die();
+// }
 
 ?>
