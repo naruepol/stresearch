@@ -12,6 +12,7 @@ class PersonTest extends TestCase {
         $this->con = new connectDB();
         $this->p1 = new Person($this->con->connect());
     }
+    
     //for test only (used getXXX) before run diable $this->insertUser(); in setDataToInsertAccount
     // public function testCreateObject(){
     //     $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","2");

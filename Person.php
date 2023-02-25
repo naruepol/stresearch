@@ -86,9 +86,9 @@ class Person
         $this->insertUser();
     }
     
-     // call by setDataToInsertAccount
-     // apply factory method to create object encryption type 
-     // return EncryptAlgorithm
+    // call by setDataToInsertAccount
+    // apply factory method to create object encryption type 
+    // return EncryptAlgorithm
     private function createSecurityType($stid)
     {
         switch ($stid) {
