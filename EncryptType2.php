@@ -9,7 +9,7 @@ class EncryptType2 implements EncryptAlgorithm
     }
     public function verify($pwd, $epwd)
     {
-        if (md5($pwd == $epwd)){
+        if (md5($pwd) == $epwd){
             return true;
          } else {
             return false;

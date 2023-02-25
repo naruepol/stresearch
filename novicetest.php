@@ -2,6 +2,7 @@
 // Novice Test
 include "Person.php";
 include "Connect.php";
+
 $con = new connectDB();
 $p1 = new Person($con->connect());
 $p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","2");
@@ -86,4 +87,5 @@ echo "<br>";
 //     die();
 // }
 
+ echo "Return : ".$p1->checkLogin("somchai@myresearch.com","test");
 ?>

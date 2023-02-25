@@ -156,6 +156,7 @@ class Person
         $this->passwd = $user_password_in;
         
         // get encypt_passwd and security_type
+        // set $this->security_type, $this->encrypt_passwd
         if($this->getPersonDataForVerify()==true){
             return $this->verifyEncrypt();
         }else{
@@ -173,7 +174,11 @@ class Person
             $this->encrypt_strategy = new EncryptType1();
             return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword());
         }else if($this->security_type=="2"){
+            echo "Password : ".$this->getPassword();
             $this->encrypt_strategy = new EncryptType2();
+            echo "<br>";
+            echo "Encrypt : ".$this->getEncryptPassword();
+            echo "<br>";
             return $this->encrypt_strategy->verify($this->getPassword(),$this->getEncryptPassword());      
         }
     }
@@ -199,7 +204,7 @@ class Person
             echo "<br>";
             // data for verify
             $this->security_type = $person['security_type'];
-            $this->encypt_passwd = ['encypt_passwd'];
+            $this->encrypt_passwd = $person['encypt_passwd'];
             return true;
         }
         catch (PDOException $e)

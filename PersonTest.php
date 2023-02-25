@@ -44,7 +44,6 @@ class PersonTest extends TestCase {
     }
 
     public function testCheckLogin(){
-        $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","1");
         $this->assertTrue($this->p1->checkLogin("somchai@myresearch.com","test"));
     }
 }
