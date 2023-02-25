@@ -169,13 +169,13 @@ class Person
     // return boolean
     private function verifyEncrypt(){
         if($this->security_type=="1"){
-            if (password_verify($p1->getPassword(), $this->getEncryptPassword())){
+            if (password_verify($this->->getPassword(), $this->getEncryptPassword())){
                return true;
             } else {
                return false;
             }	
         }else if($this->security_type=="2"){
-            if (md5($p1->getPassword()== $this->getEncryptPassword())){
+            if (md5($this->p1->getPassword()== $this->getEncryptPassword())){
                 return true;
              } else {
                 return false;
@@ -185,6 +185,7 @@ class Person
 
     // get security_type_db and encypt_passwd_db from db
     // set security_type และ encypt_passwd for verify
+    // used by checkLogin
     // change to public for test (default private)
     public function getPersonDataForVerify(){
 
@@ -196,6 +197,7 @@ class Person
             $stmt->execute(['uemail' => $this->getUserEmail()]);
             $person = $stmt->fetch();
             // $person (array result)
+            // for novice test
             echo $person['encypt_passwd'];
             echo "<br>";
             echo $person['security_type'];
