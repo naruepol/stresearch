@@ -18,7 +18,6 @@ class Person
     function __construct($con_in)
     {
         $this->db= $con_in;
-
     }
 
     public function setDataToInsertAccount($uid_in,$name_in, $user_email_in, $password_in, $security_type_in){

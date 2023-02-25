@@ -12,7 +12,7 @@ class PersonTest extends TestCase {
         $this->con = new connectDB();
         $this->p1 = new Person($this->con->connect());
     }
-    //for test only
+    //for test only (used getXXX)
     public function testCreateObject(){
         $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","2");
         $this->assertEquals("2166",$this->p1->getUid());
@@ -22,19 +22,19 @@ class PersonTest extends TestCase {
         $this->assertEquals("2",$this->p1->getSecurityType());
     }
 
-    //for test only
+    //for test only (used getXXX)
     public function testEncryptionType1(){
         $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","1");
         $this->assertTrue(password_verify($this->p1->getPassword(), $this->p1->getEncryptPassword()));
     }
 
-    // //for test only
+    // //for test only (used getXXX)
     public function testEncryptionType2(){
         $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","2");
         $this->assertTrue(md5($this->p1->getPassword()) == $this->p1->getEncryptPassword());
     }
 
-    // //for test only
+    // //for test only (used getXXX)
     public function testChangeEncrptionType(){
         $this->p1->setDataToInsertAccount("2166","Somchai","somchai@myresearch.com","test","1");
         $this->assertTrue(password_verify($this->p1->getPassword(), $this->p1->getEncryptPassword()));
