@@ -94,7 +94,8 @@ class Person
     // return EncryptAlgorithm
     private function createSecurityType($stid)
     {
-        switch ($stid) {
+        $this->security_type = $stid;
+        switch ($this->security_type) {
             case "1";
                 return new EncryptType1();
                 break;
